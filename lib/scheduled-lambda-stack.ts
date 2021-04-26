@@ -4,17 +4,17 @@ import * as lambda from '@aws-cdk/aws-lambda-nodejs'
 import * as path from 'path'
 import * as targets from '@aws-cdk/aws-events-targets'
 
-export class CdkTestStack extends cdk.Stack {
+export class ScheduledLambdaStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props)
 
-    const fn = new lambda.NodejsFunction(this, 'HelloWorld', {
-      entry: path.resolve(__dirname, 'hello', 'index.ts'),
+    const fn = new lambda.NodejsFunction(this, 'Scheduled', {
+      entry: path.resolve(__dirname, '../src/scheduled-lambda/index.ts'),
       handler: 'handler'
     })
 
     const rule = new events.Rule(this, 'Schedule', {
-      schedule: events.Schedule.rate(cdk.Duration.minutes(1))
+      schedule: events.Schedule.rate(cdk.Duration.hours(12))
     })
 
     rule.addTarget(new targets.LambdaFunction(fn))
