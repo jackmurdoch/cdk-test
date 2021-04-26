@@ -1,9 +1,22 @@
-import * as cdk from '@aws-cdk/core';
+import * as cdk from '@aws-cdk/core'
+import * as events from '@aws-cdk/aws-events'
+import * as lambda from '@aws-cdk/aws-lambda-nodejs'
+import * as path from 'path'
+import * as targets from '@aws-cdk/aws-events-targets'
 
 export class CdkTestStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
-    super(scope, id, props);
+    super(scope, id, props)
 
-    // The code that defines your stack goes here
+    const fn = new lambda.NodejsFunction(this, 'HelloWorld', {
+      entry: path.resolve(__dirname, 'hello', 'index.ts'),
+      handler: 'handler'
+    })
+
+    const rule = new events.Rule(this, 'Schedule', {
+      schedule: events.Schedule.rate(cdk.Duration.minutes(1))
+    })
+
+    rule.addTarget(new targets.LambdaFunction(fn))
   }
 }
