@@ -25,7 +25,7 @@ commands:
           key: dependency-cache-{{ checksum "package-lock.json" }}
   deploy-app:
     steps:
-      - run: npm run cdk deploy --all
+      - run: npm run deploy
 
 jobs:
   deploy:
