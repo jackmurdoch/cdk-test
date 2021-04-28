@@ -44,5 +44,3 @@ workflows:
     jobs:
       - deploy:
           context: aws-account
-          requires:
-            - build
