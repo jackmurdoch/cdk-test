@@ -6,7 +6,7 @@
   },
   "scripts": {
     "test": "jest",
-    "deploy": "cdk deploy --all",
+    "deploy": "cdk deploy --all --require-approval never",
     "invoke:api": "cdk synth ApiLambdaStack --no-staging > template.yaml && sam local start-api",
     "invoke:scheduled": "cdk synth ScheduledLambdaStack --no-staging > template.yaml && sam local invoke Scheduled181240FD --no-event"
   },
