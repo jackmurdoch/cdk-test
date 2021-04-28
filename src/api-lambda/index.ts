@@ -8,7 +8,8 @@ export const handler: APIGatewayProxyHandler = async event => {
     statusCode: 200,
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      hello: `${faker.name.firstName()} ${faker.name.lastName()}`
+      firstName: faker.name.firstName(),
+      lastName: faker.name.lastName()
     })
   }
 }
