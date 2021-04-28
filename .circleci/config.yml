@@ -40,7 +40,18 @@ jobs:
 
 workflows:
   version: 2
-  deploy-master:
+  deploy:
     jobs:
       - deploy:
-          context: aws-account
+          context: aws-account-staging
+          filters:
+            branches:
+              only:
+                - master
+          
+      - deploy:
+          context: aws-account-production
+          filters:
+            branches:
+              only:
+                - production

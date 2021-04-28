@@ -8,12 +8,12 @@ export class ScheduledLambdaStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props)
 
-    const fn = new lambda.NodejsFunction(this, 'Scheduled', {
+    const fn = new lambda.NodejsFunction(this, `${process.env.DEPLOY_ENV}-scheduled`, {
       entry: path.resolve(__dirname, '../src/scheduled-lambda/index.ts'),
       handler: 'handler'
     })
 
-    const rule = new events.Rule(this, 'Schedule', {
+    const rule = new events.Rule(this, `${process.env.DEPLOY_ENV}-schedule`, {
       schedule: events.Schedule.rate(cdk.Duration.hours(12))
     })
 
