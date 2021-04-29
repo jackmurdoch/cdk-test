@@ -26,6 +26,12 @@ commands:
   deploy-app:
     steps:
       - run: npm run deploy
+  lint:
+    steps:
+      - run: npm run lint
+  test:
+    steps:
+      - run: npm run test
 
 jobs:
   deploy:
@@ -35,6 +41,8 @@ jobs:
       - restore-dependencies
       - install-dependencies
       - cache-dependencies
+      - lint
+      - test
       - aws-cli/setup
       - deploy-app
 
