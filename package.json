@@ -4,22 +4,28 @@
   "bin": {
     "cdk-test": "bin/cdk-test.js"
   },
-  "scripts": {
-    "test": "jest",
-    "deploy": "cdk deploy --all --require-approval never",
-    "invoke:api": "cdk synth ApiLambdaStack --no-staging > template.yaml && sam local start-api",
-    "invoke:scheduled": "cdk synth ScheduledLambdaStack --no-staging > template.yaml && sam local invoke Scheduled181240FD --no-event"
-  },
   "devDependencies": {
     "@aws-cdk/assert": "1.100.0",
     "@types/aws-lambda": "^8.10.75",
     "@types/faker": "^5.5.3",
     "@types/jest": "^26.0.10",
     "@types/node": "10.17.27",
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
     "aws-cdk": "1.100.0",
+    "concurrently": "^6.0.2",
     "esbuild": "^0.11.15",
+    "eslint": "^7.25.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-promise": "^4.3.1",
+    "eslint-plugin-standard": "^5.0.0",
     "jest": "^26.4.2",
-    "ts-jest": "^26.2.0",
+    "prettier": "^2.2.1",
+    "ts-jest": "^26.5.5",
     "ts-node": "^9.0.0",
     "typescript": "~3.9.7"
   },
@@ -31,5 +37,20 @@
     "@aws-cdk/core": "1.100.0",
     "faker": "^5.5.3",
     "source-map-support": "^0.5.16"
+  },
+  "scripts": {
+    "deploy": "cdk deploy --all --require-approval never",
+    "eslint": "eslint -c ./.eslintrc --no-eslintrc ./**/**.ts*",
+    "lint": "concurrently \"npm run eslint\" \"npm run prettier\"",
+    "pre-push": "concurrently \"npm run lint\" \"npm run test --bail\"",
+    "prettier": "prettier --check \"src/**/*.ts\"",
+    "prettier:format": "prettier --write \"src/**/*.ts\"",
+    "test": "jest",
+    "typecheck": "tsc --project tsconfig.json"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run pre-push"
+    }
   }
 }
