@@ -47,10 +47,5 @@
     "prettier:format": "prettier --write \"src/**/*.ts\"",
     "test": "jest",
     "typecheck": "tsc --project tsconfig.json"
-  },
-  "husky": {
-    "hooks": {
-      "pre-push": "npm run pre-push"
-    }
   }
 }
