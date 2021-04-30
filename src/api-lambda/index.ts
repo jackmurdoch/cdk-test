@@ -2,7 +2,7 @@ import * as faker from 'faker';
 import { APIGatewayProxyHandler } from 'aws-lambda';
 import { setLambdaHandler } from 'newrelic';
 
-require('@newrelic/aws-sdk');
+import '@newrelic/aws-sdk';
 
 export const handler: APIGatewayProxyHandler = setLambdaHandler(
   async (event) => {
