@@ -16,7 +16,7 @@ export class ApiLambdaStack extends cdk.Stack {
       }
     })
 
-    const fn = new lambda.NodejsFunction(this, `${process.env.DEPLOY_ENV}-scheduled`, {
+    const fn = new lambda.NodejsFunction(this, `${process.env.DEPLOY_ENV}-api`, {
       entry: path.resolve(__dirname, '../src/api-lambda/index.ts'),
       handler: 'handler'
     })

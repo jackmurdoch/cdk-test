@@ -32,6 +32,15 @@ commands:
   test:
     steps:
       - run: npm run test
+  install-newrelic-cli:
+    steps:
+      - run: pip3 install newrelic-lambda-cli
+  install-newrelic-integration:
+    steps:
+      - run: newrelic-lambda integrations install --nr-account-id $NEWRELIC_ACCOUNT_ID --nr-api-key $NEWRELIC_API_KEY --nr-region $NEWRELIC_REGION
+  install-newrelic-layers:
+    steps:
+      - run: newrelic-lambda layers install -f all --nr-account-id $NEWRELIC_ACCOUNT_ID
 
 jobs:
   deploy:
@@ -40,11 +49,14 @@ jobs:
       - checkout
       - restore-dependencies
       - install-dependencies
+      - install-newrelic-cli
       - cache-dependencies
       - lint
       - test
       - aws-cli/setup
       - deploy-app
+      - install-integration
+      - install-newrelic-layers
 
 workflows:
   version: 2
