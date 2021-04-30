@@ -16,6 +16,9 @@ export class ScheduledLambdaStack extends cdk.Stack {
         NEW_RELIC_APP_NAME: `${process.env.DEPLOY_ENV || 'staging'}-scheduled-lambda`,
         NEW_RELIC_ACCOUNT_ID: process.env.NEWRELIC_ACCOUNT_ID || '',
         NEW_RELIC_TRUSTED_ACCOUNT_KEY: process.env.NEWRELIC_ACCOUNT_ID || ''
+      },
+      bundling: {
+        nodeModules: ['newrelic']
       }
     })
 
