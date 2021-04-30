@@ -55,7 +55,7 @@ jobs:
       - test
       - aws-cli/setup
       - deploy-app
-      - install-integration
+      - install-newrelic-integration
       - install-newrelic-layers
 
 workflows:
