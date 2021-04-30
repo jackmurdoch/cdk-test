@@ -26,7 +26,7 @@ export class ApiLambdaStack extends cdk.Stack {
         NEW_RELIC_TRUSTED_ACCOUNT_KEY: process.env.NEWRELIC_ACCOUNT_ID || ''
       },
       bundling: {
-        nodeModules: ['newrelic']
+        nodeModules: ['newrelic', '@newrelic/aws-sdk']
       }
     })
 
