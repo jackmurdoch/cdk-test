@@ -10,7 +10,13 @@ export class ScheduledLambdaStack extends cdk.Stack {
 
     const fn = new lambda.NodejsFunction(this, `${process.env.DEPLOY_ENV || 'staging'}-scheduled-lambda`, {
       entry: path.resolve(__dirname, '../src/scheduled-lambda/index.ts'),
-      handler: 'handler'
+      handler: 'handler',
+      environment: {
+        NEW_RELIC_NO_CONFIG_FILE: 'true',
+        NEW_RELIC_APP_NAME: `${process.env.DEPLOY_ENV || 'staging'}-scheduled-lambda`,
+        NEW_RELIC_ACCOUNT_ID: process.env.NEWRELIC_ACCOUNT_ID || '',
+        NEW_RELIC_TRUSTED_ACCOUNT_KEY: process.env.NEWRELIC_ACCOUNT_ID || ''
+      }
     })
 
     const rule = new events.Rule(this, `${process.env.DEPLOY_ENV || 'staging'}-scheduled-rule`, {
