@@ -7,16 +7,16 @@ export class ApiLambdaStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props)
 
-    const restApi = new api.RestApi(this, `${process.env.DEPLOY_ENV}-api`, {
+    const restApi = new api.RestApi(this, `${process.env.DEPLOY_ENV || 'staging'}-api`, {
       deployOptions: {
-        stageName: process.env.DEPLOY_ENV,
+        stageName: process.env.DEPLOY_ENV || 'staging',
         metricsEnabled: true,
         loggingLevel: api.MethodLoggingLevel.INFO,
         dataTraceEnabled: true
       }
     })
 
-    const fn = new lambda.NodejsFunction(this, `${process.env.DEPLOY_ENV}-api`, {
+    const fn = new lambda.NodejsFunction(this, `${process.env.DEPLOY_ENV || 'staging'}-api-lambda`, {
       entry: path.resolve(__dirname, '../src/api-lambda/index.ts'),
       handler: 'handler'
     })

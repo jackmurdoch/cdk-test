@@ -6,5 +6,5 @@ import { ApiLambdaStack } from '../infra/api-lambda-stack'
 
 const app = new App()
 
-new ScheduledLambdaStack(app, `${process.env.DEPLOY_ENV}-ScheduledLambda`)
-new ApiLambdaStack(app, `${process.env.DEPLOY_ENV}-ApiLambda`)
+new ScheduledLambdaStack(app, `${process.env.DEPLOY_ENV || 'staging'}-scheduled-lambda`)
+new ApiLambdaStack(app, `${process.env.DEPLOY_ENV || 'staging'}-api-lambda`)
