@@ -1,6 +1,6 @@
-import * as faker from 'faker';
 import { ScheduledHandler } from 'aws-lambda';
+import { generateRandom } from '../utils';
 
 export const handler: ScheduledHandler = async () => {
-  console.log('hello:', faker.name.firstName(), faker.name.lastName());
+  console.log(generateRandom());
 };
