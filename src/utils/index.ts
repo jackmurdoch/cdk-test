@@ -13,5 +13,5 @@ export function generateRandom(): RandomData {
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
     product: faker.commerce.product(),
-  }
+  };
 }
